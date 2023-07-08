@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Patient {
+  id         String   @id @default(uuid())
+  name       String
+  cpf        String   @unique
+  bloodGroup String
+  gender     String
+  phone      String
+  createdAt  DateTime @default(now())
+
+  Scheduling Scheduling?
+}
+
+model Scheduling {
+  id        String   @id @default(uuid())
+  date      DateTime
+  createdAt DateTime @default(now())
+
+  patientId String @unique
+
+  patient Patient @relation(fields: [patientId], references: [id])
+}
