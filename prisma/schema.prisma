@@ -13,7 +13,7 @@ datasource db {
 model Patient {
   id         String   @id @default(uuid())
   name       String
-  cpf        String   @unique
+  cpf        String
   bloodGroup String
   gender     String
   phone      String
@@ -29,5 +29,5 @@ model Scheduling {
 
   patientId String @unique
 
-  patient Patient @relation(fields: [patientId], references: [id])
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
 }
